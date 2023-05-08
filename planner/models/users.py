@@ -22,6 +22,11 @@ class User(Document):
         }
 
 
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
+
+
 class UserSignIn(BaseModel):
     email: EmailStr
     password: str
