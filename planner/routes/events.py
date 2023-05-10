@@ -34,11 +34,11 @@ async def create_event(body: Event, user: str = Depends(authenticate)) -> dict:
 
 @event_router.put("/d/{id}", response_model=Event)
 async def update_event(id: PydanticObjectId, body: EventUpdate, user: str = Depends(authenticate)) -> Event:
-    event = await event_database.get(id)
+    event = await event_database.update(id, body)
     #updated_event = await event_database.update(id, body)
     if event.creator != user:
         raise HTTPException(status_code=status.HTTP_404_BAD_REQUEST, detail="Operation not allowed")
-    return updated_event
+    return event
 
 
 @event_router.delete("/d/{id}")
